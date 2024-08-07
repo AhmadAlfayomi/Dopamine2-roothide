@@ -64,7 +64,7 @@ rootlesshooks: .build .include libjailbreak
 	$(MAKE) -C rootlesshooks
 	@cp rootlesshooks/.theos/obj/rootlesshooks.dylib .build
 
-libroot: 
+libroot: .build .include libjailbreak
 	@$(MAKE) -C ../Packages/libroot all
 	@cp ../Packages/libroot/libroot.dylib .build
 
@@ -74,9 +74,7 @@ libroot:
 	mkdir -p .build
 	cp -r _external/basebin/* .build
 	cp _external/basebin/.version .build
-ifeq ($(NIGHTLY), 1)
-	echo $(COMMIT_HASH) > .build/.version
-endif
+	echo "$(COMMIT_HASH)" > .build/.version
 
 .include:
 	rm -rf .include
